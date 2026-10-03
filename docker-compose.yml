@@ -1,0 +1,21 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: db
+      DB_NAME: beanbox
+      DB_USER: beanbox
+      DB_PASS: beanbox
+    depends_on:
+      - db
+  db:
+    image: mariadb:11
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: beanbox
+      MARIADB_USER: beanbox
+      MARIADB_PASSWORD: beanbox
+    volumes:
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
